@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+
+
+<html>
+	<head>
+		<style type="text/css">
+			p.c{
+			white-space:pre;
+			}
+			span{
+			background-color: #80ced6
+			}
+		</style>
+	</head>
+	<body>
+	<h1 style="color:#E75480;font-size:50px;"><span>Breast Cancer Prediction</span></h1>
+		<p class="c">
+		<img style="border:10px outset Black;" src="../static/images/Home.gif" alt="Home" style="width:50%;" height="470">
+
+
+	</body>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<style type="text/css">
+			table {
+			border-collapse: collapse;
+			width: 70%;
+			}
+			th {
+			height: 70px;
+			}
+			table, th, td {
+			border: 1px solid black;
+			border-collapse: collapse;
+			}
+			table.center {
+			margin-left: auto;
+			margin-right: auto;
+			}
+			img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+			}
+			h1{text-align: center;}
+			p{text-align: center;}
+			div{text-align: center;}
+
+		</style>
+	</head>
+	<body>
+		<table class="center" style="background-color:#FFD1DC;">
+			<head>
+				<style>
+					body{
+						background:url(../static/images/cancer_back.jpg);
+
+					  background-repeat: no-repeat;
+					  background-attachment: fixed; 
+					  background-size: 100% 100%;
+					}
+					table.center{
+					margin-left: auto; 
+					margin-right: auto;
+					}
+					
+				</style>
+			</head>
+			<form name="passdata" action="." method="post">
+				<tbody>
+					<tr>
+						<th
+							scope="col" style="width:35%;font-size:20px;">Subject(Range Value)
+						</th>
+						<th
+							scope="col" style="width:70%;font-size:20px;">Information
+						</th>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Radius Mean
+						</td>
+						<td style="text-align:center">
+							<input name="radiusmean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:center">
+							Texture Mean
+						</td>
+						<td style="text-align:center">
+							<input name="texturemean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Perimeter Mean
+						</td>
+						<td style="text-align:center">
+							<input name="perimetermean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:center">
+							Area Mean
+						</td>
+						<td style="text-align:center">
+							<input name="areamean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Smoothness Mean
+						</td>
+						<td style="text-align:center">
+							<input name="smothnessmean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Compactness Mean
+						</td>
+						<td style="text-align:center">
+							<input name="compactnessmean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:center">
+							Concavity Mean
+						</td>
+						<td style="text-align:center">
+							<input name="concativitymean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Concave Point Mean
+						</td>
+						<td style="text-align:center">
+							<input name="concavepointmean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Symmetry Mean
+						</td>
+						<td style="text-align:center">
+							<input name="symmetrymean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Fractal Dimension Mean
+						</td>
+						<td style="text-align:center">
+							<input name="fractaldimensionmean" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Radius SE
+						</td>
+						<td style="text-align:center">
+							<input name="radiusse" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Texture SE
+						</td>
+						<td style="text-align:center">
+							<input name="Texturese" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Perimeter SE
+						</td>
+						<td style="text-align:center">
+							<input name="Perimeterse" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Area SE
+						</td>
+						<td style="text-align:center">
+							<input name="arease" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Smoothness SE
+						</td>
+						<td style="text-align:center">
+							<input name="smoothnessse" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Compactness SE
+						</td>
+						<td style="text-align:center">
+							<input name="compactnessse" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Concavity SE
+						</td>
+						<td style="text-align:center">
+							<input name="concativityse" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Concave Point SE
+						</td>
+						<td style="text-align:center">
+							<input name="concavepointse" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Symmetry SE
+						</td>
+						<td style="text-align:center">
+							<input name="symmetryse" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Fractal Dimension SE
+						</td>
+						<td style="text-align:center">
+							<input name="fractaldimensionse" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Radius Worst
+						</td>
+						<td style="text-align:center">
+							<input name="radiusworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Texture Worst
+						</td>
+						<td style="text-align:center">
+							<input name="textureworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Perimeter Worst
+						</td>
+						<td style="text-align:center">
+							<input name="perimeterworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Area Worst
+						</td>
+						<td style="text-align:center">
+							<input name="areaworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Smothness Worst
+						</td>
+						<td style="text-align:center">
+							<input name="smoothnessworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Compactness Worst
+						</td>
+						<td style="text-align:center">
+							<input name="compactnessworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Concavity Worst
+						</td>
+						<td style="text-align:center">
+							<input name="concativtyworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Concave Points Worst
+						</td>
+						<td style="text-align:center">
+							<input name="concavepointworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Symmetry Worst
+						</td>
+						<td style="text-align:center">
+							<input name="symmetryworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+
+					<tr>
+						<td style="text-align:center">
+							Fractal Dimension Worst
+						</td>
+						<td style="text-align:center">
+							<input name="fractaldimansionworst" class="textbook" type ="text"><br><br>
+						</td>
+					</tr>
+					<tr>
+						<td style="text-align:center">
+							<form action="Result.html">
+							<input type="submit">
+							</form>
+						</td>
+					</tr>
+				</tbody>
+			</form>
+		</table>
+	</body>
+</html>
