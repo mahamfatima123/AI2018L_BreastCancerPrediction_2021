@@ -7,7 +7,7 @@ from flask import Flask,render_template,request
 
 
 
-# import CSV data
+# import given data
 DataCsv = pd.read_csv('data.csv')
 
 # Convert CSV data into Excel format
@@ -34,36 +34,35 @@ for i in range(0, len(DataCsv)):
 x = DataCsv.iloc[:, 2:32].values
 y = DataCsv.iloc[:, 1].values
 
-# Train the model on 75% of our data
-# Test the model with remaining 25% of the data
-X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.05)
-print(X_train)
+# Let's Train our model on 95% of data
+# We can also Test the model with remaining 5% of data
+TrainX, TestX, TrainY, TestY = train_test_split(x, y, test_size=0.05)
 # Validating Data
-X_train = np.array(X_train)
-y_train = np.array(y_train)
-X_train = X_train.astype(np.float64)
-y_train = y_train.astype(np.float64)
+TrainX = np.array(TrainX)
+TrainY = np.array(TrainY)
+TrainX = TrainX.astype(np.float64)
+TrainY = TrainY.astype(np.float64)
 
-X_test = np.array(X_test)
-y_test = np.array(y_test)
-X_test = X_test.astype(np.float64)
-y_test = y_test.astype(np.float64)
+TestX = np.array(TestX)
+TestY = np.array(TestY)
+TestX = TestX.astype(np.float64)
+TestY = TestY.astype(np.float64)
 
 # Data Normalization
-'''for row in range(len(X_train)):
-    Xmax=np.max(X_train[row,:])
-    Xmin=np.min(X_train[row,:])
+'''for row in range(len(TrainX)):
+    Xmax=np.max(TrainX[row,:])
+    Xmin=np.min(TrainX[row,:])
     for col in range(29):
-        X=X_train[row][col]
+        X=TrainX[row][col]
         X_train[row][col]=(X-Xmin)/(Xmax-Xmin)'''
 
 # Use SVM modelling to train the data
 svc_lin=SVC(kernel='linear',random_state=0)
-svc_lin.fit(X_train,y_train)
-print('Training Accuracy:',svc_lin.score(X_train,y_train))
+svc_lin.fit(TrainX,TrainY)
+Training_Accuracy=svc_lin.score(TrainX,TrainY)
 
 
-# print('Testing Accuracy:',svc_lin.score(X_test,y_test))
+Testing_Accuracy=svc_lin.score(TestX,TestY)
 
 # Web App
 Main=Flask(__name__)
@@ -111,103 +110,16 @@ def getvalue():
              RadiusSe,Texturese,Perimeterse,AreaSE,SmoothnessSE,compactnessSE,ConcativiytySE,
              concavepointse,Symmetryse,FractalDimensionSE,
              Radiusworst,TextureWorst,PerimeterWorst,AreaWorst,SmoothnessWorst,
-             CompactnessWorst,ConcativtyWorst,Concavepointworst,SymmetryWorst,FractalDimansionWorst],
+             CompactnessWorst,ConcativtyWorst,Concavepointworst,SymmetryWorst,FractalDimansionWorst]]
 
-            [Radiusmean, Texturemean, Perimetermean, Areamean, Smoothnessmean, Compactnessmean,
-             Concativiytymean, Concavepointmean, Symmetrymean, FractalDimensionMean,
-             RadiusSe, Texturese, Perimeterse, AreaSE, SmoothnessSE, compactnessSE, ConcativiytySE,
-             concavepointse, Symmetryse, FractalDimensionSE,
-             Radiusworst, TextureWorst, PerimeterWorst, AreaWorst, SmoothnessWorst,
-             CompactnessWorst, ConcativtyWorst, Concavepointworst, SymmetryWorst, FractalDimansionWorst]]
-    y_test=[1,0]
-    result=(svc_lin.score(X_test, y_test))
-    print('Testing Accuracy:', svc_lin.score(X_test, y_test))
-    return render_template('pass.html',
-                           RM=Radiusmean,
-                           TM=Texturemean,
-                           PM=Perimetermean,
-                           AM=Areamean ,
-                           SM=Smoothnessmean,
-                           CM=Compactnessmean,
-                           ConMN=Concativiytymean,
-                           conpointmean=Concavepointmean,
-                           symMn=Symmetrymean,
-                           FM=FractalDimensionMean,
+    result = svc_lin.predict(X_test)
+    print(result[0])
+    if result==1:
+        return render_template("ResultMal.html", RESULT=result)
+    if result==0:
+        return render_template("ResultBen.html", RESULT=result)
 
-                           radiusSE=RadiusSe,
-                           Texse=Texturese,
-                           PerSE=Perimeterse,
-                           ArSe=AreaSE ,
-                           smoSE=SmoothnessSE,
-                           compSE=compactnessSE,
-                           ConSe=ConcativiytySE,
-                           concvptse=concavepointse,
-                           SymSE=Symmetryse,
-                           FracDimSE=FractalDimensionSE,
 
-                           RW=Radiusworst,
-                           TW=TextureWorst,
-                           PW=PerimeterWorst,
-                           AW=AreaWorst,
-                           SmoWorst=SmoothnessWorst,
-                           CompW=CompactnessWorst,
-                           ConWrst=ConcativtyWorst,
-                           ConptW=Concavepointworst,
-                           SymmWrst=SymmetryWorst,
-                           FracDimWrst=FractalDimansionWorst)
-
-@Main.route('/Result')
-def Result():
-    Radiusmean = request.form['radiusmean']
-    Texturemean = request.form['texturemean']
-    Perimetermean = request.form['perimetermean']
-    Areamean = request.form['areamean']
-    Smoothnessmean = request.form['smothnessmean']
-    Compactnessmean = request.form['compactnessmean']
-    Concativiytymean = request.form['concativitymean']
-    Concavepointmean = request.form['concavepointmean']
-    Symmetrymean = request.form['symmetrymean']
-    FractalDimensionMean = request.form['fractaldimensionmean']
-
-    RadiusSe = request.form['radiusse']
-    Texturese = request.form['Texturese']
-    Perimeterse = request.form['Perimeterse']
-    AreaSE = request.form['arease']
-    SmoothnessSE = request.form['smoothnessse']
-    compactnessSE = request.form['compactnessse']
-    ConcativiytySE = request.form['concativityse']
-    concavepointse = request.form['concavepointse']
-    Symmetryse = request.form['symmetryse']
-    FractalDimensionSE = request.form['fractaldimensionse']
-
-    Radiusworst = request.form['radiusworst']
-    TextureWorst = request.form['textureworst']
-    PerimeterWorst = request.form['perimeterworst']
-    AreaWorst = request.form['areaworst']
-    SmoothnessWorst = request.form['smoothnessworst']
-    CompactnessWorst = request.form['compactnessworst']
-    ConcativtyWorst = request.form['concativtyworst']
-    Concavepointworst = request.form['concavepointworst']
-    SymmetryWorst = request.form['symmetryworst']
-    FractalDimansionWorst = request.form['fractaldimansionworst']
-
-    X_test = [[Radiusmean, Texturemean, Perimetermean, Areamean, Smoothnessmean, Compactnessmean,
-               Concativiytymean, Concavepointmean, Symmetrymean, FractalDimensionMean,
-               RadiusSe, Texturese, Perimeterse, AreaSE, SmoothnessSE, compactnessSE, ConcativiytySE,
-               concavepointse, Symmetryse, FractalDimensionSE,
-               Radiusworst, TextureWorst, PerimeterWorst, AreaWorst, SmoothnessWorst,
-               CompactnessWorst, ConcativtyWorst, Concavepointworst, SymmetryWorst, FractalDimansionWorst],
-
-              [Radiusmean, Texturemean, Perimetermean, Areamean, Smoothnessmean, Compactnessmean,
-               Concativiytymean, Concavepointmean, Symmetrymean, FractalDimensionMean,
-               RadiusSe, Texturese, Perimeterse, AreaSE, SmoothnessSE, compactnessSE, ConcativiytySE,
-               concavepointse, Symmetryse, FractalDimensionSE,
-               Radiusworst, TextureWorst, PerimeterWorst, AreaWorst, SmoothnessWorst,
-               CompactnessWorst, ConcativtyWorst, Concavepointworst, SymmetryWorst, FractalDimansionWorst]]
-    y_test = [1, 0]
-    result = (svc_lin.score(X_test, y_test))
-    print('Testing Accuracy:', svc_lin.score(X_test, y_test))
-    return render_template("Result.html",RESULT=result)
 
 
 if __name__ == '__main__':
